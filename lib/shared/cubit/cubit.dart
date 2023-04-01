@@ -13,17 +13,20 @@ class WeatherCubit extends Cubit<WeatherStatus> {
 
   String baseUrl = 'http://api.weatherapi.com/v1';
   String apiKey = '20c50eeaadae4799a05153539230203';
-
   late WeatherModel weatherModel;
+  bool isTextFieldVisable = false;
+
   
-  void getWeather({required String cityName}) async{
+  void getWeather({required String cityName ,}) async{
     emit(GetWeatherDataLoadingState());
 
-    Uri url = Uri.parse('$baseUrl/forecast.json?key=$apiKey&q=$cityName&aqi=no');
+    Uri url = Uri.parse('$baseUrl/forecast.json?key=$apiKey&q=$cityName&days=3&aqi=no&alerts=no');
     try{
       http.Response response = await http.get(url);
       Map<String, dynamic> json = jsonDecode(response.body);
       weatherModel = WeatherModel.fromJson(json);
+      print(weatherModel.location!.localtime);
+      print(weatherModel.location!.name);
       emit(GetWeatherDataSuccessfullyState());
     }catch(e){
       emit(GetWeatherDataErrorState());
@@ -31,4 +34,8 @@ class WeatherCubit extends Cubit<WeatherStatus> {
     }
   }
 
+  void changeVisibilityOfTextField(bool value){
+    isTextFieldVisable = !value;
+    emit(ChangeTextFieldVisibilityState());
+  }
 }
