@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../cubit/cubit.dart';
-import '../../cubit/status.dart';
+
+import '../../shared/cubit/cubit.dart';
+import '../../shared/cubit/status.dart';
+
 
 
 class SearchScreen extends StatelessWidget {
@@ -37,9 +39,6 @@ class SearchScreen extends StatelessWidget {
                   labelText: 'Enter City',
                   hintText: 'Enter City',
                 ),
-                onChanged: (value){
-                  cubit.getWeather(cityName: value);
-                },
                 onFieldSubmitted: (value){
                   cubit.getWeather(cityName: value);
                 },

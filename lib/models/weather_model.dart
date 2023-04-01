@@ -4,9 +4,14 @@ class WeatherModel {
   Forecast? forecast;
 
   WeatherModel.fromJson(Map<String, dynamic> json) {
-    location = json['location'] != null ? new Location.fromJson(json['location']) : null;
-    current = json['current'] != null ? new Current.fromJson(json['current']) : null;
-    forecast = json['forecast'] != null ? new Forecast.fromJson(json['forecast']) : null;
+    location = json['location'] != null
+        ? new Location.fromJson(json['location'])
+        : null;
+    current =
+    json['current'] != null ? new Current.fromJson(json['current']) : null;
+    forecast = json['forecast'] != null
+        ? new Forecast.fromJson(json['forecast'])
+        : null;
   }
 }
 
@@ -30,13 +35,12 @@ class Location {
     localtimeEpoch = json['localtime_epoch'];
     localtime = json['localtime'];
   }
-
 }
 
 class Current {
   int? lastUpdatedEpoch;
   String? lastUpdated;
-  int? tempC;
+  double? tempC;
   double? tempF;
   int? isDay;
   Condition? condition;
@@ -44,17 +48,17 @@ class Current {
   double? windKph;
   int? windDegree;
   String? windDir;
-  int? pressureMb;
+  double? pressureMb;
   double? pressureIn;
-  int? precipMm;
-  int? precipIn;
+  double? precipMm;
+  double? precipIn;
   int? humidity;
   int? cloud;
   double? feelslikeC;
   double? feelslikeF;
-  int? visKm;
-  int? visMiles;
-  int? uv;
+  double? visKm;
+  double? visMiles;
+  double? uv;
   double? gustMph;
   double? gustKph;
 
@@ -64,7 +68,9 @@ class Current {
     tempC = json['temp_c'];
     tempF = json['temp_f'];
     isDay = json['is_day'];
-    condition = json['condition'] != null ? new Condition.fromJson(json['condition']) : null;
+    condition = json['condition'] != null
+        ? new Condition.fromJson(json['condition'])
+        : null;
     windMph = json['wind_mph'];
     windKph = json['wind_kph'];
     windDegree = json['wind_degree'];
@@ -83,15 +89,12 @@ class Current {
     gustMph = json['gust_mph'];
     gustKph = json['gust_kph'];
   }
-
 }
 
 class Condition {
   String? text;
   String? icon;
   int? code;
-
-  Condition({this.text, this.icon, this.code});
 
   Condition.fromJson(Map<String, dynamic> json) {
     text = json['text'];
@@ -101,7 +104,7 @@ class Condition {
 }
 
 class Forecast {
-  List<Forecastday> forecastday = [];
+  List<Forecastday>? forecastday;
 
   Forecast.fromJson(Map<String, dynamic> json) {
     if (json['forecastday'] != null) {
@@ -111,19 +114,20 @@ class Forecast {
       });
     }
   }
-
 }
 
 class Forecastday {
   String? date;
   int? dateEpoch;
   Day? day;
+  Astro? astro;
   List<Hour>? hour;
 
   Forecastday.fromJson(Map<String, dynamic> json) {
     date = json['date'];
     dateEpoch = json['date_epoch'];
     day = json['day'] != null ? new Day.fromJson(json['day']) : null;
+    astro = json['astro'] != null ? new Astro.fromJson(json['astro']) : null;
     if (json['hour'] != null) {
       hour = <Hour>[];
       json['hour'].forEach((v) {
@@ -131,7 +135,6 @@ class Forecastday {
       });
     }
   }
-
 }
 
 class Day {
@@ -143,18 +146,18 @@ class Day {
   double? avgtempF;
   double? maxwindMph;
   double? maxwindKph;
-  int? totalprecipMm;
-  int? totalprecipIn;
-  int? totalsnowCm;
-  int? avgvisKm;
-  int? avgvisMiles;
-  int? avghumidity;
+  double? totalprecipMm;
+  double? totalprecipIn;
+  double? totalsnowCm;
+  double? avgvisKm;
+  double? avgvisMiles;
+  double? avghumidity;
   int? dailyWillItRain;
   int? dailyChanceOfRain;
   int? dailyWillItSnow;
   int? dailyChanceOfSnow;
   Condition? condition;
-  int? uv;
+  double? uv;
 
   Day.fromJson(Map<String, dynamic> json) {
     maxtempC = json['maxtemp_c'];
@@ -175,10 +178,33 @@ class Day {
     dailyChanceOfRain = json['daily_chance_of_rain'];
     dailyWillItSnow = json['daily_will_it_snow'];
     dailyChanceOfSnow = json['daily_chance_of_snow'];
-    condition = json['condition'] != null ? new Condition.fromJson(json['condition']) : null;
+    condition = json['condition'] != null
+        ? new Condition.fromJson(json['condition'])
+        : null;
     uv = json['uv'];
   }
+}
 
+class Astro {
+  String? sunrise;
+  String? sunset;
+  String? moonrise;
+  String? moonset;
+  String? moonPhase;
+  String? moonIllumination;
+  int? isMoonUp;
+  int? isSunUp;
+
+  Astro.fromJson(Map<String, dynamic> json) {
+    sunrise = json['sunrise'];
+    sunset = json['sunset'];
+    moonrise = json['moonrise'];
+    moonset = json['moonset'];
+    moonPhase = json['moon_phase'];
+    moonIllumination = json['moon_illumination'];
+    isMoonUp = json['is_moon_up'];
+    isSunUp = json['is_sun_up'];
+  }
 }
 
 class Hour {
@@ -192,10 +218,10 @@ class Hour {
   double? windKph;
   int? windDegree;
   String? windDir;
-  int? pressureMb;
+  double? pressureMb;
   double? pressureIn;
-  int? precipMm;
-  int? precipIn;
+  double? precipMm;
+  double? precipIn;
   int? humidity;
   int? cloud;
   double? feelslikeC;
@@ -210,11 +236,11 @@ class Hour {
   int? chanceOfRain;
   int? willItSnow;
   int? chanceOfSnow;
-  int? visKm;
-  int? visMiles;
+  double? visKm;
+  double? visMiles;
   double? gustMph;
   double? gustKph;
-  int? uv;
+  double? uv;
 
   Hour.fromJson(Map<String, dynamic> json) {
     timeEpoch = json['time_epoch'];
@@ -222,7 +248,9 @@ class Hour {
     tempC = json['temp_c'];
     tempF = json['temp_f'];
     isDay = json['is_day'];
-    condition = json['condition'] != null ? new Condition.fromJson(json['condition']) : null;
+    condition = json['condition'] != null
+        ? new Condition.fromJson(json['condition'])
+        : null;
     windMph = json['wind_mph'];
     windKph = json['wind_kph'];
     windDegree = json['wind_degree'];
@@ -251,5 +279,4 @@ class Hour {
     gustKph = json['gust_kph'];
     uv = json['uv'];
   }
-
 }
